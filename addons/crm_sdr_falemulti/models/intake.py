@@ -28,6 +28,7 @@ class Intake(models.Model):
         ("queued", "Na fila"), ("done", "Analisada"), ("review", "Revisão humana"),
     ], default="queued", readonly=True, required=True, index=True)
     facts = fields.Json(readonly=True)
+    model_fields = fields.Char(readonly=True)
     correction = fields.Json(readonly=True)
     next_step = fields.Char(readonly=True)
     failure = fields.Char(readonly=True)
@@ -97,10 +98,12 @@ class Intake(models.Model):
             self.write({"state": "review", "failure": "Modelo indisponível ou saída inválida.",
                         "next_step": "Qualificar manualmente."})
             return
+        model_fields = ", ".join(sorted(facts))
+        facts = {**qualifier.explicit_facts(self.text), **facts}
         question = qualifier.next_question({**memory, **facts})
         needs_review = handoff or not facts or not question
         self.write({
-            "state": "review" if needs_review else "done", "facts": facts,
+            "state": "review" if needs_review else "done", "facts": facts, "model_fields": model_fields,
             "failure": "Nenhum fato novo verificável." if not facts else False,
             "next_step": "Vendedor: revisar e assumir." if needs_review else question,
         })

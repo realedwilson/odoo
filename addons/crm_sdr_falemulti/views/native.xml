@@ -7,7 +7,7 @@
     <field name="name">sdr.native.intake.form</field><field name="model">sdr.native.intake</field>
     <field name="arch" type="xml"><form>
       <header><button name="action_correct" type="object" string="Corrigir fato" invisible="state == 'queued'"/><field name="state" widget="statusbar"/></header>
-      <sheet><group><field name="lead_id" readonly="id"/><field name="text" readonly="id" placeholder="Cole aqui o que o cliente informou."/><field name="next_step"/><field name="failure"/></group><group string="Fatos e correções"><field name="facts"/><field name="correction"/></group></sheet>
+      <sheet><group><field name="lead_id" readonly="id"/><field name="text" readonly="id" placeholder="Cole aqui o que o cliente informou."/><field name="next_step"/><field name="failure"/></group><group string="Fatos e correções"><field name="facts"/><field name="model_fields" string="Campos extraídos pela IA"/><field name="correction"/></group></sheet>
     </form></field>
   </record>
   <record id="action_native" model="ir.actions.act_window">
