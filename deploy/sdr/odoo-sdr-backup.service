@@ -1,0 +1,8 @@
+[Unit]
+Description=Backup Odoo CRM database and filestore
+Requires=docker.service
+After=docker.service
+
+[Service]
+Type=oneshot
+ExecStart=/bin/bash /opt/odoo-sdr/backup.sh

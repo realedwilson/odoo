@@ -1,0 +1,10 @@
+[Unit]
+Description=Check GitHub for Odoo SDR updates
+
+[Timer]
+OnBootSec=5min
+OnUnitInactiveSec=5min
+Persistent=true
+
+[Install]
+WantedBy=timers.target

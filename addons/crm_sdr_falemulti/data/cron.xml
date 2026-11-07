@@ -1,0 +1,15 @@
+<odoo noupdate="1">
+  <record id="cron_dispatch" model="ir.cron">
+    <field name="name">SDR FaleMulti: fila de saída</field>
+    <field name="model_id" ref="model_sdr_fm_intent"/>
+    <field name="state">code</field><field name="code">model._cron_dispatch()</field>
+    <field name="interval_number">1</field><field name="interval_type">minutes</field>
+    <field name="active" eval="False"/>
+  </record>
+  <record id="cron_native_qualify" model="ir.cron">
+    <field name="name">SDR: qualificar interações do Odoo</field>
+    <field name="model_id" ref="model_sdr_native_intake"/>
+    <field name="state">code</field><field name="code">model._cron_qualify()</field>
+    <field name="interval_number">1</field><field name="interval_type">minutes</field>
+  </record>
+</odoo>

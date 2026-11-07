@@ -1,0 +1,41 @@
+<odoo>
+  <record id="view_native_list" model="ir.ui.view">
+    <field name="name">sdr.native.intake.list</field><field name="model">sdr.native.intake</field>
+    <field name="arch" type="xml"><list><field name="lead_id"/><field name="owner_id"/><field name="state"/><field name="next_step"/><field name="failure"/></list></field>
+  </record>
+  <record id="view_native_form" model="ir.ui.view">
+    <field name="name">sdr.native.intake.form</field><field name="model">sdr.native.intake</field>
+    <field name="arch" type="xml"><form>
+      <header><button name="action_correct" type="object" string="Corrigir fato" invisible="state == 'queued'"/><field name="state" widget="statusbar"/></header>
+      <sheet><group><field name="lead_id" readonly="id"/><field name="text" readonly="id" placeholder="Cole aqui o que o cliente informou."/><field name="next_step"/><field name="failure"/></group><group string="Fatos e correções"><field name="facts"/><field name="correction"/></group></sheet>
+    </form></field>
+  </record>
+  <record id="action_native" model="ir.actions.act_window">
+    <field name="name">Qualificação no Odoo</field><field name="res_model">sdr.native.intake</field><field name="view_mode">list,form</field>
+  </record>
+  <menuitem id="menu_native" name="Qualificação no Odoo" parent="menu_sdr" action="action_native" sequence="1"/>
+  <record id="view_native_correction" model="ir.ui.view">
+    <field name="name">sdr.native.correction.form</field><field name="model">sdr.native.correction</field>
+    <field name="arch" type="xml"><form><group><field name="intake_id" invisible="1"/><field name="field"/><field name="value"/></group><footer><button name="action_save" type="object" string="Salvar" class="btn-primary"/><button string="Cancelar" special="cancel"/></footer></form></field>
+  </record>
+  <record id="view_native_review_form" model="ir.ui.view">
+    <field name="name">sdr.native.review.form</field><field name="model">sdr.native.review</field>
+    <field name="arch" type="xml"><form><header><button type="object" name="action_publish" string="Publicar ou restaurar"/></header><sheet><group><field name="name" readonly="published"/><field name="company_id" readonly="published"/><field name="guidance" readonly="published"/><field name="evidence" readonly="published"/><field name="evaluation" readonly="published"/><field name="active"/><field name="published"/></group></sheet></form></field>
+  </record>
+  <record id="view_native_review_list" model="ir.ui.view">
+    <field name="name">sdr.native.review.list</field><field name="model">sdr.native.review</field>
+    <field name="arch" type="xml"><list><field name="name"/><field name="company_id"/><field name="active"/><field name="published"/></list></field>
+  </record>
+  <record id="action_native_review" model="ir.actions.act_window">
+    <field name="name">Melhorias do agente</field><field name="res_model">sdr.native.review</field><field name="view_mode">list,form</field><field name="context">{'active_test': False}</field>
+  </record>
+  <menuitem id="menu_native_review" name="Melhorias do agente" parent="menu_sdr" action="action_native_review" groups="group_supervisor" sequence="2"/>
+  <record id="crm_lead_form_native" model="ir.ui.view">
+    <field name="name">crm.lead.form.sdr.native</field><field name="model">crm.lead</field><field name="inherit_id" ref="crm.crm_lead_view_form"/>
+    <field name="arch" type="xml"><xpath expr="//notebook" position="inside">
+      <page name="sdr_native" string="Qualificação IA" groups="crm_sdr_falemulti.group_operator">
+        <field name="sdr_native_ids" context="{'default_lead_id': id}"><list><field name="state"/><field name="next_step"/><field name="failure"/></list></field>
+      </page>
+    </xpath></field>
+  </record>
+</odoo>

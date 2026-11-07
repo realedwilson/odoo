@@ -1,0 +1,9 @@
+[Unit]
+Description=Validate and deploy new Odoo SDR commits
+After=docker.service network-online.target
+Requires=docker.service
+
+[Service]
+Type=oneshot
+ExecStart=/bin/bash /opt/odoo-sdr/update.sh
+TimeoutStartSec=1800

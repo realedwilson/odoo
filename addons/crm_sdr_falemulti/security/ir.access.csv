@@ -1,0 +1,32 @@
+id,name,model_id,group_id/id,operation,domain
+access_queue_company,queue company,sdr.fm.queue,,crud,"[('company_id', 'in', company_ids)]"
+access_queue_operator,queue operator,sdr.fm.queue,crm_sdr_falemulti.group_operator,r,"[('operator_ids', 'in', [user.id])]"
+access_queue_supervisor,queue supervisor,sdr.fm.queue,crm_sdr_falemulti.group_supervisor,cru,
+access_campaign_company,campaign company,sdr.fm.campaign,,crud,"[('company_id', 'in', company_ids)]"
+access_campaign_operator,campaign operator,sdr.fm.campaign,crm_sdr_falemulti.group_operator,r,"[('queue_id.operator_ids', 'in', [user.id])]"
+access_campaign_supervisor,campaign supervisor,sdr.fm.campaign,crm_sdr_falemulti.group_supervisor,cru,
+access_conversation_company,conversation company,sdr.fm.conversation,,crud,"[('company_id', 'in', company_ids)]"
+access_conversation_operator,conversation operator,sdr.fm.conversation,crm_sdr_falemulti.group_operator,r,"[('queue_id.operator_ids', 'in', [user.id])]"
+access_conversation_supervisor,conversation supervisor,sdr.fm.conversation,crm_sdr_falemulti.group_supervisor,cr,
+access_event_company,event company,sdr.fm.event,,crud,"[('company_id', 'in', company_ids)]"
+access_event_operator,event operator,sdr.fm.event,crm_sdr_falemulti.group_operator,r,"[('queue_id.operator_ids', 'in', [user.id])]"
+access_event_supervisor,event supervisor,sdr.fm.event,crm_sdr_falemulti.group_supervisor,r,
+access_fact_company,fact company,sdr.fm.fact,,crud,"[('company_id', 'in', company_ids)]"
+access_fact_operator,fact operator,sdr.fm.fact,crm_sdr_falemulti.group_operator,r,"[('queue_id.operator_ids', 'in', [user.id])]"
+access_fact_supervisor,fact supervisor,sdr.fm.fact,crm_sdr_falemulti.group_supervisor,cru,
+access_intent_company,intent company,sdr.fm.intent,,crud,"[('company_id', 'in', company_ids)]"
+access_intent_operator,intent operator,sdr.fm.intent,crm_sdr_falemulti.group_operator,cru,"[('queue_id.operator_ids', 'in', [user.id])]"
+access_intent_supervisor,intent supervisor,sdr.fm.intent,crm_sdr_falemulti.group_supervisor,cru,
+access_policy_company,policy company,sdr.fm.policy,,crud,"[('company_id', 'in', company_ids)]"
+access_policy_operator,policy operator,sdr.fm.policy,crm_sdr_falemulti.group_operator,r,"[('queue_id.operator_ids', 'in', [user.id])]"
+access_policy_supervisor,policy supervisor,sdr.fm.policy,crm_sdr_falemulti.group_supervisor,cru,
+access_incident_company,incident company,sdr.fm.incident,,crud,"[('company_id', 'in', company_ids)]"
+access_incident_operator,incident operator,sdr.fm.incident,crm_sdr_falemulti.group_operator,r,"[('queue_id.operator_ids', 'in', [user.id])]"
+access_incident_supervisor,incident supervisor,sdr.fm.incident,crm_sdr_falemulti.group_supervisor,r,
+
+native_intake_company,intake company,sdr.native.intake,,crud,"[('company_id', 'in', company_ids)]"
+native_intake_operator,intake operator,sdr.native.intake,crm_sdr_falemulti.group_operator,cr,"[('owner_id', '=', user.id)]"
+native_intake_supervisor,intake supervisor,sdr.native.intake,crm_sdr_falemulti.group_supervisor,cr,
+native_correction,correction wizard,sdr.native.correction,crm_sdr_falemulti.group_operator,crud,
+native_review_company,review company,sdr.native.review,,crud,"[('company_id', 'in', company_ids)]"
+native_review_supervisor,review supervisor,sdr.native.review,crm_sdr_falemulti.group_supervisor,cru,

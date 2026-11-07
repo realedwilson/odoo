@@ -1,0 +1,142 @@
+<odoo>
+  <menuitem id="menu_sdr" name="SDR FaleMulti" groups="group_operator" sequence="75"/>
+  <record id="view_queue_list" model="ir.ui.view">
+    <field name="name">sdr.fm.queue.list</field><field name="model">sdr.fm.queue</field>
+    <field name="arch" type="xml"><list><field name="name"/><field name="company_id"/><field name="account"/><field name="channel"/><field name="external_queue"/></list></field>
+  </record>
+  <record id="view_queue_form" model="ir.ui.view">
+    <field name="name">sdr.fm.queue.form</field><field name="model">sdr.fm.queue</field>
+    <field name="arch" type="xml">
+      <form>
+        <sheet><group><field name="name"/><field name="company_id"/><field name="account"/><field name="channel"/><field name="external_queue"/><field name="operator_ids"/></group></sheet>
+      </form>
+    </field>
+  </record>
+  <record id="action_queue" model="ir.actions.act_window">
+    <field name="name">Filas</field><field name="res_model">sdr.fm.queue</field><field name="view_mode">list,form</field>
+  </record>
+  <menuitem id="menu_queue" name="Filas" parent="menu_sdr" action="action_queue"/>
+  <record id="view_campaign_list" model="ir.ui.view">
+    <field name="name">sdr.fm.campaign.list</field><field name="model">sdr.fm.campaign</field>
+    <field name="arch" type="xml"><list><field name="name"/><field name="company_id"/><field name="queue_id"/><field name="paused"/><field name="daily_limit"/><field name="followup_days"/><field name="model_enabled"/><field name="daily_model_calls"/><field name="template"/><field name="policy_id"/><field name="policy_version"/></list></field>
+  </record>
+  <record id="view_campaign_form" model="ir.ui.view">
+    <field name="name">sdr.fm.campaign.form</field><field name="model">sdr.fm.campaign</field>
+    <field name="arch" type="xml">
+      <form><header><button type="object" name="action_pause" string="Pausar campanha"/></header>
+        <sheet><group><field name="name"/><field name="company_id"/><field name="queue_id"/><field name="paused"/><field name="daily_limit"/><field name="followup_days"/><field name="model_enabled"/><field name="daily_model_calls"/><field name="template"/><field name="policy_id"/><field name="policy_version"/></group></sheet>
+      </form>
+    </field>
+  </record>
+  <record id="action_campaign" model="ir.actions.act_window">
+    <field name="name">Campanhas</field><field name="res_model">sdr.fm.campaign</field><field name="view_mode">list,form</field>
+  </record>
+  <menuitem id="menu_campaign" name="Campanhas" parent="menu_sdr" action="action_campaign"/>
+  <record id="view_conversation_list" model="ir.ui.view">
+    <field name="name">sdr.fm.conversation.list</field><field name="model">sdr.fm.conversation</field>
+    <field name="arch" type="xml"><list><field name="lead_id"/><field name="company_id"/><field name="queue_id"/><field name="campaign_id"/><field name="owner_id"/><field name="external_contact"/><field name="ticket"/><field name="ticket_url" widget="url"/><field name="eligible"/><field name="state"/><field name="next_step"/></list></field>
+  </record>
+  <record id="view_conversation_form" model="ir.ui.view">
+    <field name="name">sdr.fm.conversation.form</field><field name="model">sdr.fm.conversation</field>
+    <field name="arch" type="xml">
+      <form><header><button type="object" name="action_assume" string="Assumir"/><button type="object" name="action_pause" string="Pausar"/><button type="object" name="action_resume" string="Retomar" groups="crm_sdr_falemulti.group_supervisor"/></header>
+        <sheet><group><field name="lead_id"/><field name="company_id"/><field name="queue_id"/><field name="campaign_id"/><field name="owner_id"/><field name="external_contact"/><field name="ticket"/><field name="eligible"/><field name="state" readonly="1"/><field name="next_step"/></group><group string="Fatos e evidências"><field name="fact_ids" readonly="1"/></group></sheet>
+      </form>
+    </field>
+  </record>
+  <record id="action_conversation" model="ir.actions.act_window">
+    <field name="name">Conversas</field><field name="res_model">sdr.fm.conversation</field><field name="view_mode">list,form</field>
+  </record>
+  <menuitem id="menu_conversation" name="Conversas" parent="menu_sdr" action="action_conversation"/>
+  <record id="view_intent_list" model="ir.ui.view">
+    <field name="name">sdr.fm.intent.list</field><field name="model">sdr.fm.intent</field>
+    <field name="arch" type="xml"><list><field name="conversation_id"/><field name="cycle"/><field name="step"/><field name="due_at"/><field name="template"/><field name="state"/><field name="external_id"/><field name="reason"/></list></field>
+  </record>
+  <record id="view_intent_form" model="ir.ui.view">
+    <field name="name">sdr.fm.intent.form</field><field name="model">sdr.fm.intent</field>
+    <field name="arch" type="xml">
+      <form><header><button type="object" name="action_approve" string="Aprovar" groups="crm_sdr_falemulti.group_supervisor" invisible="state != 'review'"/></header>
+        <sheet><group><field name="conversation_id"/><field name="cycle"/><field name="step"/><field name="due_at"/><field name="body"/><field name="template"/><field name="state"/><field name="external_id"/><field name="reason"/></group></sheet>
+      </form>
+    </field>
+  </record>
+  <record id="action_intent" model="ir.actions.act_window">
+    <field name="name">Revisão e envios</field><field name="res_model">sdr.fm.intent</field><field name="view_mode">list,form</field>
+  </record>
+  <menuitem id="menu_intent" name="Revisão e envios" parent="menu_sdr" action="action_intent"/>
+  <record id="view_fact_list" model="ir.ui.view">
+    <field name="name">sdr.fm.fact.list</field><field name="model">sdr.fm.fact</field>
+    <field name="arch" type="xml"><list><field name="conversation_id"/><field name="key"/><field name="value"/><field name="evidence"/><field name="status"/></list></field>
+  </record>
+  <record id="view_fact_form" model="ir.ui.view">
+    <field name="name">sdr.fm.fact.form</field><field name="model">sdr.fm.fact</field>
+    <field name="arch" type="xml">
+      <form>
+        <sheet><group><field name="conversation_id"/><field name="key"/><field name="value"/><field name="evidence"/><field name="status"/></group></sheet>
+      </form>
+    </field>
+  </record>
+  <record id="action_fact" model="ir.actions.act_window">
+    <field name="name">Memória</field><field name="res_model">sdr.fm.fact</field><field name="view_mode">list,form</field>
+  </record>
+  <menuitem id="menu_fact" name="Memória" parent="menu_sdr" action="action_fact"/>
+  <record id="view_event_list" model="ir.ui.view">
+    <field name="name">sdr.fm.event.list</field><field name="model">sdr.fm.event</field>
+    <field name="arch" type="xml"><list><field name="conversation_id"/><field name="external_id"/><field name="kind"/><field name="occurred_at"/></list></field>
+  </record>
+  <record id="view_event_form" model="ir.ui.view">
+    <field name="name">sdr.fm.event.form</field><field name="model">sdr.fm.event</field>
+    <field name="arch" type="xml">
+      <form>
+        <sheet><group><field name="conversation_id"/><field name="external_id"/><field name="kind"/><field name="occurred_at"/></group></sheet>
+      </form>
+    </field>
+  </record>
+  <record id="action_event" model="ir.actions.act_window">
+    <field name="name">Eventos</field><field name="res_model">sdr.fm.event</field><field name="view_mode">list,form</field>
+  </record>
+  <menuitem id="menu_event" name="Eventos" parent="menu_sdr" action="action_event"/>
+  <record id="view_policy_list" model="ir.ui.view">
+    <field name="name">sdr.fm.policy.list</field><field name="model">sdr.fm.policy</field>
+    <field name="arch" type="xml"><list><field name="name"/><field name="company_id"/><field name="queue_id"/><field name="campaign_id"/><field name="published"/></list></field>
+  </record>
+  <record id="view_policy_form" model="ir.ui.view">
+    <field name="name">sdr.fm.policy.form</field><field name="model">sdr.fm.policy</field>
+    <field name="arch" type="xml">
+      <form><header><button type="object" name="action_publish" string="Publicar / restaurar" groups="crm_sdr_falemulti.group_supervisor"/></header>
+        <sheet><group><field name="name"/><field name="company_id"/><field name="queue_id"/><field name="campaign_id"/><field name="guidance"/><field name="evaluation"/><field name="published"/></group></sheet>
+      </form>
+    </field>
+  </record>
+  <record id="action_policy" model="ir.actions.act_window">
+    <field name="name">Políticas</field><field name="res_model">sdr.fm.policy</field><field name="view_mode">list,form</field>
+  </record>
+  <menuitem id="menu_policy" name="Políticas" parent="menu_sdr" action="action_policy"/>
+  <record id="view_incident_list" model="ir.ui.view">
+    <field name="name">sdr.fm.incident.list</field><field name="model">sdr.fm.incident</field>
+    <field name="arch" type="xml"><list><field name="conversation_id"/><field name="category"/><field name="event_id"/><field name="policy_version"/></list></field>
+  </record>
+  <record id="view_incident_form" model="ir.ui.view">
+    <field name="name">sdr.fm.incident.form</field><field name="model">sdr.fm.incident</field>
+    <field name="arch" type="xml">
+      <form>
+        <sheet><group><field name="conversation_id"/><field name="category"/><field name="event_id"/><field name="policy_version"/></group></sheet>
+      </form>
+    </field>
+  </record>
+  <record id="action_incident" model="ir.actions.act_window">
+    <field name="name">Falhas</field><field name="res_model">sdr.fm.incident</field><field name="view_mode">list,form</field>
+  </record>
+  <menuitem id="menu_incident" name="Falhas" parent="menu_sdr" action="action_incident"/>
+  <record id="crm_lead_form_sdr" model="ir.ui.view">
+    <field name="name">crm.lead.form.sdr.falemulti</field><field name="model">crm.lead</field>
+    <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+    <field name="arch" type="xml">
+      <xpath expr="//notebook" position="inside">
+        <page name="sdr_falemulti" string="SDR" groups="crm_sdr_falemulti.group_operator">
+          <field name="sdr_conversation_ids" readonly="1"><list><field name="ticket"/><field name="state"/><field name="owner_id"/><field name="next_step"/><button type="object" name="action_assume" string="Assumir"/><button type="object" name="action_pause" string="Pausar"/><button type="object" name="action_resume" string="Retomar" groups="crm_sdr_falemulti.group_supervisor"/></list></field>
+        </page>
+      </xpath>
+    </field>
+  </record>
+</odoo>
